@@ -23,8 +23,8 @@ const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Listening on port ${port}..`));
 
 //Get all items
-app.get('/items', (req,res) => {
-    mysqlConnection.query('SELECT * FROM inventory.items', (err, rows, fields) => {
+app.get('/items/:id', (req,res) => {
+    mysqlConnection.query('SELECT * FROM inventory.items WHERE id = ?',[req.params.id], (err, rows, fields) => {
         if (!err)
             res.send(rows);
         else
